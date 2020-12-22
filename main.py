@@ -6,6 +6,7 @@ import pygame
 # import random
 # import tkinter as tk
 # from tkinter import messagebox
+from snake_class import Snake
 
 
 def drawGrid(w, rows, surface):
@@ -40,10 +41,16 @@ def main():
     flag = True
     clock = pygame.time.Clock()
 
+    s = Snake('Red', 10)
+    count = 0
     while flag:
         pygame.time.delay(50)
         clock.tick(10)
         redrawWindow(window)
+        s.sound()
+        count += 1
+        if count == 20:
+            flag = False
 
 
 main()
