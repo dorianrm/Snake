@@ -1,22 +1,19 @@
-# python3 -m venv venv
-# source venv/bin/activate
-# deactivate
 import pygame
+from snake_class import Snake
+from cube_class import Cube
 # import math
 # import random
 # import tkinter as tk
 # from tkinter import messagebox
-from snake_class import Snake
+
 
 '''
 @param surface and its dimensions
 Draws the grid portion of the game using lines
 Lines = white
 '''
-
-
-def drawGrid(w, rows, surface):
-    sizeBtwn = w // rows
+def drawGrid(w, r, surface):
+    sizeBtwn = w // r
     x, y = 0, 0
     for i in range(rows):
         x = x + sizeBtwn
@@ -30,14 +27,12 @@ def drawGrid(w, rows, surface):
 @param surface aka window of game
 Redraws game surface + elements (window, cubes, grid, snake) 
 '''
-
-
 def redrawWindow(surface):
     global rows, width, s, snack
     surface.fill((0, 0, 0))  # color of background (black)
     drawGrid(width, rows, surface)
-    s.draw(surface)
-    snake.draw(surface)
+    # s.draw(surface)
+    # snack.draw(surface)
     pygame.display.update()
 
 
@@ -45,14 +40,9 @@ def redrawWindow(surface):
 Controls running of game.
 Only function called to play game
 '''
-
-
 def main():
-    # Initialize pygame module
-    # pygame.init()
-
-    # create window
     global width, rows, s, snack
+    # create window
     width, rows = 500, 20
     window = pygame.display.set_mode((width, width))
 
@@ -60,14 +50,16 @@ def main():
     clock = pygame.time.Clock()
 
     s = Snake('Red', 10)
+    snack = Cube(0, 'Red')
     count = 0
     while flag:
         pygame.time.delay(50)
         clock.tick(10)
         redrawWindow(window)
+        # s.move()
         s.sound()
         count += 1
-        if count == 50:
+        if count == 40:
             flag = False
 
 
