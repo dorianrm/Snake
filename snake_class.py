@@ -12,10 +12,6 @@ class Snake(object):
     def sound(self):
         print("hissss")
 
-    def draw(self, surface):
-        pass
-        # for i,c in enumerate(self.body):
-        #     if i == 0:
     def move(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -54,5 +50,12 @@ class Snake(object):
             self.body.append(Cube(new_pos))
 
         self.body[-1].dir_x = dx
-        self.body[-1].dir_y = dy       
+        self.body[-1].dir_y = dy   
+
+    def draw(self, surface):
+        for i,block in enumerate(self.body):
+            if i == 0:
+                block.draw(surface, True) 
+            else:
+                block.draw(surface)   
 
