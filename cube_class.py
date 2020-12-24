@@ -3,9 +3,9 @@ import pygame
 class Cube(object):
     rows = 20 # UPDATE FROM main.py
     width = 500
-    def __init__(self, color=(255,0,0), pos, dir_x=1, dir_y=0):
-        self.color = color
+    def __init__(self, pos, color=(255,0,0), dir_x=1, dir_y=0):
         self.pos = pos #tuple (x,y)
+        self.color = color
         self.dir_x = 1
         self.dir_y = 0
 

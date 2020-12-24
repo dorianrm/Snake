@@ -1,5 +1,5 @@
 import pygame
-pygame.init()
+from cube_class import Cube 
 class Snake(object):
     body = [] #List of cubes
     def __init__(self, color, pos):
@@ -35,4 +35,24 @@ class Snake(object):
                 elif keys[pygame.K_DOWN]:
                     self.dir_x = 0
                     self.dir_y = 1
+    
+    def addCube(self):
+        tail = self.body[-1]
+        dx, dy = tail.dir_x, tail.dir_y
+
+        if dx == 1 and dy == 0: # moving right
+            new_pos = (tail.pos[0]-1, tail.pos[1])
+            self.body.append(Cube(new_pos))
+        elif dx == -1 and dy == 0: # left
+            new_pos = (tail.pos[0]+1, tail.pos[1])
+            self.body.append(Cube(new_pos))
+        elif dx == 0 and dy == -1: # up
+            new_pos = (tail.pos[0], tail.pos[1]+1)
+            self.body.append(Cube(new_pos))
+        elif dx == 0 and dy == 1: # down
+            new_pos = (tail.pos[0], tail.pos[1]-1)
+            self.body.append(Cube(new_pos))
+
+        self.body[-1].dir_x = dx
+        self.body[-1].dir_y = dy       
 
