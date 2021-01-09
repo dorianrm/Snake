@@ -25,7 +25,7 @@ def drawGrid(w, r, surface):
 
 '''
 @param surface aka window of game
-Redraws game surface + elements (window, cubes, grid, snake) 
+Redraws game surface + elements (window, grid, cubes, snake) 
 '''
 def redrawWindow(surface):
     global rows, width, s, snack
@@ -41,28 +41,30 @@ Controls running of game.
 Only function called to play game
 '''
 def main():
+    #global vars
     global width, rows, s, snack
-    # create window
     width, rows = 500, 20
+    s = Snake('Red', (10,10))
+    snack = Cube((0,0), 'Blue')
+
+    #create window
     window = pygame.display.set_mode((width, width))
 
     flag = True
     clock = pygame.time.Clock()
 
-    s = Snake('Red', (10,10))
-    snack = Cube((0,0), 'Red')
+
     count = 0
     print('Just before while')
     while flag:
         pygame.time.delay(50)
         clock.tick(10)
-        redrawWindow(window)
         s.move()
-        # s.sound()
+        redrawWindow(window)
         count += 1
         # if count == 40:
         #     # flag = False
+    pass
 
-
-# Run program
+# --------------------
 main()
