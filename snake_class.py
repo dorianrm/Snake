@@ -2,9 +2,10 @@ import pygame
 from cube_class import Cube 
 class Snake(object):
     body = [] #List of cubes
+    rows = 20
     def __init__(self, color, pos):
         self.color = color
-        self.head = pos
+        self.head = Cube(pos)
         self.body.append(self.head)
         self.dir_x = 0
         self.dir_y = 0
@@ -19,18 +20,26 @@ class Snake(object):
             keys = pygame.key.get_pressed()
 
             for key in keys:
-                if keys[pygame.K_LEFT]:
+                if keys[pygame.K_a]:
                     self.dir_x = -1
                     self.dir_y = 0
-                elif keys[pygame.K_RIGHT]:
+                elif keys[pygame.K_d]:
                     self.dir_x = 1
                     self.dir_y = 0
-                elif keys[pygame.K_UP]:
+                elif keys[pygame.K_w]:
                     self.dir_x = 0
                     self.dir_y = -1
-                elif keys[pygame.K_DOWN]:
+                elif keys[pygame.K_s]:
                     self.dir_x = 0
                     self.dir_y = 1
+
+            for i, block in enumerate(self.body):
+                p = block.pos[:]
+                if block.dir_x == -1 and block.pos[0] <= 0: #left
+                    block.pos = (block.rows-1, block.pos[1])
+                elif block.dir_x == 1 and block.pos[0] >= block.rows-1: #right
+                    block.pos = (block.rows+1, block.pos[1])
+
     
     def addCube(self):
         tail = self.body[-1]

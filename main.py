@@ -31,8 +31,8 @@ def redrawWindow(surface):
     global rows, width, s, snack
     surface.fill((0, 0, 0))  # color of background (black)
     drawGrid(width, rows, surface)
-    # s.draw(surface)
-    # snack.draw(surface)
+    s.draw(surface)
+    snack.draw(surface)
     pygame.display.update()
 
 
@@ -49,18 +49,19 @@ def main():
     flag = True
     clock = pygame.time.Clock()
 
-    s = Snake('Red', 10)
-    snack = Cube(0, 'Red')
+    s = Snake('Red', (10,10))
+    snack = Cube((0,0), 'Red')
     count = 0
+    print('Just before while')
     while flag:
         pygame.time.delay(50)
         clock.tick(10)
         redrawWindow(window)
-        # s.move()
-        s.sound()
+        s.move()
+        # s.sound()
         count += 1
-        if count == 40:
-            flag = False
+        # if count == 40:
+        #     # flag = False
 
 
 # Run program

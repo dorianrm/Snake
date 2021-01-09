@@ -16,6 +16,8 @@ class Cube(object):
 
     def draw(self, surface, eyes=False):
         dis = self.width // self.rows
+        # print('in cube _______')
+        # print('pos: ', self.pos)
         i,j = self.pos[0], self.pos[1]
         pygame.draw.rect(surface,self.color, (i*dis+1, j*dis+1, dis-2, dis-2))
 
