@@ -1,15 +1,17 @@
 import pygame
-from cube_class import Cube 
+from cube_class import Cube
+import settings 
 class Snake(object):
     body = [] #List of cubes
     turns = {}
-    rows = 20 #Global number of rows
+    
     def __init__(self, color, pos):
         self.color = color
         self.head = Cube(pos)
         self.body.append(self.head)
         self.dir_x = 0
         self.dir_y = 0
+        rows = settings.rows
 
     def sound(self):
         print("hissss")
@@ -22,43 +24,39 @@ class Snake(object):
 
             for key in keys:
                 if keys[pygame.K_a]:
-                    print("Move left")
                     self.dir_x = -1
                     self.dir_y = 0
                     self.turns[self.head.pos[:]] = [self.dir_x, self.dir_y]
                 elif keys[pygame.K_d]:
-                    print("Move right")
                     self.dir_x = 1
                     self.dir_y = 0
                     self.turns[self.head.pos[:]] = [self.dir_x, self.dir_y]
                 elif keys[pygame.K_w]:
-                    print("Move up")
                     self.dir_x = 0
                     self.dir_y = -1
                     self.turns[self.head.pos[:]] = [self.dir_x, self.dir_y]
                 elif keys[pygame.K_s]:
-                    print("Move down")
                     self.dir_x = 0
                     self.dir_y = 1
                     self.turns[self.head.pos[:]] = [self.dir_x, self.dir_y]
 
-            for i, block in enumerate(self.body):
-                p = block.pos[:]
-                if p in self.turns:
-                    turn = self.turns[p]
-                    block.move(turn[0], turn[1])
-                    if i == len(self.body)-1:
-                        self.turns.pop(p)
-                
+        for i, block in enumerate(self.body):
+            p = block.pos[:]
+            if p in self.turns:
+                turn = self.turns[p]
+                block.move(turn[0], turn[1])
+                if i == len(self.body)-1:
+                    self.turns.pop(p)
+            
+            else:
+                if block.dir_x == -1 and block.pos[0] <= 0: #left
+                    block.pos = (block.rows-1, block.pos[1])
+                elif block.dir_x == 1 and block.pos[0] >= block.rows-1: #right
+                    block.pos = (0, block.pos[1])
+                elif block.dir_y == 1 and block.pos[1] >= block.rows-1:
+                    block.pos = (block.pos[0], 0)
                 else:
-                    if block.dir_x == -1 and block.pos[0] <= 0: #left
-                        block.pos = (block.rows-1, block.pos[1])
-                    elif block.dir_x == 1 and block.pos[0] >= block.rows-1: #right
-                        block.pos = (0, block.pos[1])
-                    elif block.dir_y == 1 and block.pos[1] >= block.rows-1:
-                        block.pos = (block.pos[0], 0)
-                    else:
-                        block.move(block.dir_x, block.dir_y)
+                    block.move(block.dir_x, block.dir_y)
 
     
     def addCube(self):
