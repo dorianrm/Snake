@@ -67,9 +67,9 @@ def message_box(subject, content):
     print('START OF MESSAGE_BOX')
     root = tk.Tk()
     print('AFTER CALL TO ROOT')
-    # root.attributes("-topmost", True)
-    # root.withdraw()
-    # messagebox.showinfo(subject, content)
+    root.attributes("-topmost", True)
+    root.withdraw()
+    messagebox.showinfo(subject, content)
     try:
         root.destroy()
     except:
@@ -104,7 +104,7 @@ def main():
         for x in range(len(s.body)):
             if s.body[x].pos in list(map(lambda z:z.pos,s.body[x+1:])):
                 print('Score: ', len(s.body))
-                message_box('You Lost!', 'Play again...')
+                # message_box('You Lost!', 'Play again...')
                 s.reset((10,10))
                 break
         redrawWindow(window)
